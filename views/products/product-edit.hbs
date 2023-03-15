@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 border p-4">
+            <h3 class="mb-4">Update Product  {{data.product_id}} </h3>
+
+            <form action="/product/update/{{data.product_id}}" method="post">
+                <div class="mb-3">
+                    <label for="product_name" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="product_name" name="product_name"
+                        value="{{data.product_name}}" placeholder="Enter productname" minlength="1" maxlength="50"
+                        aria-describedby="product_nameHelp">
+                    <div id="product_nameHelp" class="form-text">Productname cannot exceed 50 characters.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Product Description</label>
+                    <input type="text" class="form-control" id="description" name="description"
+                        value="{{data.description}}" required placeholder="Enter description">
+                </div>
+
+                <div class="mb-3">
+                    <label for="unit_id" class="form-label">Unit</label>
+                    <select class="form-select" id="unit_id" name="unit_id" aria-label=".form-select-sm example">
+                        {{#each unit_list}}
+                        <option value="{{unit_id}}" {{#if (eq unit_id ../data.unit_id)}}selected{{/if}}>
+                            {{unit_name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="category_id" class="form-label">Product Category</label>
+                    <select class="form-select" id="category_id" name="category_id"
+                        aria-label=".form-select-sm example">
+                        {{#each category_list}}
+                        <option value="{{category_id}}" {{#isEqual ../data.category_id category_id
+                            }}selected{{/isEqual}}> {{category_name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="rate" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="rate" name="rate" value="{{data.rate}}"
+                        placeholder="Enter price" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ext_code" class="form-label">Product External Code</label>
+                    <input type="text" class="form-control" id="ext_code" name="ext_code" value="{{data.ext_code}}"
+                        placeholder="Product External Code" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status" aria-label=".form-select-sm example">
+                        <option value="A" selected>Active</option>
+                        <option value="I">Not-Active</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary mx-1">Submit</button>
+                    <button type="button" class="btn btn-secondary mx-1"
+                        onclick="window.location.href='/product/view'">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

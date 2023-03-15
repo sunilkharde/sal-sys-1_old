@@ -1,0 +1,16 @@
+<h1> Temp page </h1>
+ <h2> This is user... </h2>
+ <h1>Welcome {{user.username}}!</h1>
+ 
+ 
+ <!-- your header or navigation bar code here -->
+{{#if user.username}}
+  <form action="/auth/logout" method="post">
+    <button type="submit">Logout</button>
+  </form>
+{{else}}
+  <a href="/auth/login">Login</a>
+{{/if}}
+<!-- your footer code here -->
+
+

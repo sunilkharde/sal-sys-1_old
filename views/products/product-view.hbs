@@ -1,0 +1,51 @@
+<div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style=" margin-bottom: 20px;">List of Products</h3>
+        <a href="/product/create" class="btn btn-success">Create New</a>
+    </div>
+
+    <table class="table" id="productsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Unit</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+            <tr>
+                <td>{{this.product_id}}</td>
+                <td>{{this.product_name}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.unit_name}}</td>
+                <td>{{this.category_name}}</td>
+                <td>
+                    <!-- <a href="/product/viewByID/{{this.product_id}}" class="btn btn-secondary btn-sm">
+                        <i class="bi bi-eye"></i>
+                    </a> -->
+                    <a href="/product/update/{{this.product_id}}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <a href="/product/delete/{{this.product_id}}"
+                        class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $('#productsTable').DataTable({
+                pageLength: 10
+            });
+        });
+    </script>
+
+</div>

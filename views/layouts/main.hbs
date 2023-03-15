@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    {{> header}}
+
+    {{> navbar}}
+
+    <!-- <div class="wrapper"> -->
+
+    <div class="container mt-3">
+        {{#if alert}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{alert}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {{/if}}
+    </div>
+
+    <div class="container mt-3">
+        <div class="container mb-3">
+            {{#if errors}}
+            <div class="alert alert-danger alert-dismissible fade show">
+                {{#each errors}}
+                <p>{{this.message}}</p>
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+
+        {{{body}}}
+    </div>
+
+    <!-- </div> -->
+
+{{> footer}}    
+
+</body>
+
+
+
+
+
+</html>
