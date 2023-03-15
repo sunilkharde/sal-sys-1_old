@@ -66,7 +66,7 @@ app.use('/product', productRoute);
 
 // Temp Routes
 app.get('/', (req, res) => {
-  res.render('home', { title: 'Home', message: 'Welcome!'});
+  res.render('home', { title: 'Home', message: 'Welcome, to app!'});
 });
 app.get('/about', async (req, res) => {
   res.render('error', { title: 'Error' });
