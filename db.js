@@ -14,17 +14,5 @@ const pool = mysql.createPool({
   
 });
 
-/*const pool = mysql.createPool({
-  host: process.env.MYSQLDATABASE,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-
-});*/
-
 
 export default pool;
