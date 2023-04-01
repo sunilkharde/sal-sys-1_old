@@ -1,0 +1,175 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 border p-4"> {{!-- border-secondary --}}
+            <h4 class="mb-3">Update Customer {{data.customer_id}}</h4>
+
+            <form action="/customer/update/{{data.customer_id}}" method="post">
+                <div class="row mb-3">
+                    <label for="customer_name" class="col-sm-2 col-form-label">Customer Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="customer_name" name="customer_name"
+                            value="{{data.customer_name}}" placeholder="Enter productname" minlength="1" maxlength="50"
+                            aria-describedby="customer_nameHelp">
+                        <div id="customer_nameHelp" class="form-text">Customer name cannot exceed 50 characters.</div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="nick_name" class="col-sm-2 col-form-label">Nick Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="nick_name" name="nick_name"
+                            value="{{data.nick_name}}" required placeholder="Enter Nickname">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="add1" class="col-sm-2 col-form-label">Address Line 1</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="add1" name="add1" value="{{data.add1}}"
+                            placeholder="Enter address lines 1" minlength="1" maxlength="50"
+                            aria-describedby="add1Help">
+                        <div id="add1Help" class="form-text">Customer address lines 1 cannot exceed 50 characters.</div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="add2" class="col-sm-2 col-form-label">Address Line 2</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="add2" name="add2" value="{{data.add3}}"
+                            placeholder="Enter address lines 2" minlength="1" maxlength="50"
+                            aria-describedby="add2Help">
+                        <div id="add2Help" class="form-text">Customer address lines 2 cannot exceed 50 characters.</div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="add3" class="col-sm-2 col-form-label">Address Line 3</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="add3" name="add3" value="{{data.add3}}"
+                            placeholder="Enter address lines 3" minlength="1" maxlength="50"
+                            aria-describedby="add3Help">
+                        <div id="add3Help" class="form-text">Customer address lines 3 cannot exceed 50 characters.</div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="city" class="col-sm-2 col-form-label">City</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="city" name="city" value="{{data.city}}"
+                                placeholder="Enter city name" minlength="1" maxlength="50" aria-describedby="cityHelp">
+                            <button class="btn btn-outline-info" type="button" data-bs-toggle="modal"
+                                data-bs-target="#cityModal">
+
+                                <i class="bi bi-list"></i></button>
+                        </div>
+                        <div id="cityHelp" class="form-text">Select city name from list and cannot exceed 50 characters.
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="pin_code" class="col-sm-2 col-form-label">Pin Code</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="pin_code" name="pin_code" value="{{data.pin_code}}"
+                            placeholder="Enter pin code" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="district" class="col-sm-2 col-form-label">District</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="district" name="district" value="{{data.district}}"
+                            placeholder="Enter district" minlength="1" maxlength="50">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="state" class="col-sm-2 col-form-label">State</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="state" name="state" value="{{data.state}}"
+                            placeholder="Enter state" minlength="1" maxlength="50">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="market_area_id" class="col-sm-2 col-form-label">Market Area</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <input hidden type="text" class="form-control" id="market_area_id" name="market_area_id"
+                                value="{{data.market_area_id}}">
+                            <input readonly type="text" class="form-control" id="market_area" name="market_area"
+                                value="{{data.market_area}}" placeholder="Enter market area" minlength="1"
+                                maxlength="50">
+                            <button class="btn btn-outline-info" type="button" id="btnMarketArea" data-bs-toggle="modal"
+                                data-bs-target="#marketAreaModal">
+                                <i class="bi bi-list"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="user_id" class="col-sm-2 col-form-label">Mapping User</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <input hidden type="text" class="form-control" id="user_id" name="user_id"
+                                value="{{data.user_id}}">
+                            <input readonly type="text" class="form-control" id="username" name="username"
+                                value="{{data.username}}" placeholder="Mapping username" minlength="1" maxlength="50">
+                            <button class="btn btn-outline-info" type="button" id="btnUser" data-bs-toggle="modal"
+                                data-bs-target="#usersModal">
+                                <i class="bi bi-list"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="ext_code" class="col-sm-2 col-form-label">Customer Ext Code</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="ext_code" name="ext_code" value="{{data.ext_code}}"
+                            placeholder="Customer External Code" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="geo_location" class="col-sm-2 col-form-label">Geo-Location</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="geo_location" name="geo_location"
+                            value="{{data.geo_location}}" placeholder="Customers geographic location (latitude and longitude)">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="customer_type" class="col-sm-2 col-form-label">Customer Type</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" id="customer_type" name="customer_type"
+                            aria-label=".form-select-sm example">
+                            <option value="Dealer" selected>Dealer</option>
+                            <option value="Retailer">Retailer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="status" class="col-sm-2 col-form-label">Status</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" id="status" name="status" aria-label=".form-select-sm example">
+                            <option value="A" selected>Active</option>
+                            <option value="I">Not-Active</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary mx-1">Submit</button>
+                    <div class="col-sm-10">
+                        <button type="button" class="btn btn-secondary mx-1"
+                            onclick="window.location.href='/customer/view'">Cancel</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{{> _lov-cities}}
+{{> _lov-users}}
+{{> _lov-market-area}}

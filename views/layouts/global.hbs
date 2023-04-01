@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html>
 
-<body>
-    {{> header}}
+{{> header}}
 
+<body>
     <div class="wrapper">
         <div class="container mt-3">
-            <!-- <h1>Welcome to Malpani Sales App</h1>
-        <p>This is the home page.</p> -->
+            <div class="container mb-3">
+                {{#if errors}}
+                <div class="alert alert-danger alert-dismissible fade show">
+                    {{#each errors}}
+                    <p>{{this.message}}</p>
+                    {{/each}}
+                </div>
+                {{/if}}
+            </div>
+
             {{{body}}}
         </div>
 

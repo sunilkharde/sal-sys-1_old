@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <!-- cityModal -->
+    <div class="modal fade" id="cityModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Select city name from list...</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table" id="cityTable">
+                        <thead>
+                            <tr>
+                                <th>City</th>
+                                <th>Pin Code</th>
+                                <th>District</th>
+                                <th>State</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each cities_list}}
+                            <tr>
+                                <td>{{this.city}}</td>
+                                <td>{{this.pin_code}}</td>
+                                <td>{{this.district}}</td>
+                                <td>{{this.state}}</td>
+                                <td style="text-align: center;">
+                                    <button type="button" class="btn btn-info btn-sm"
+                                        onclick="handleSelectButtonCity(this)">
+                                        <i class="bi bi-check2-square"></i>&nbsp;Select
+                                    </button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                </div>
+                {{!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #cityModal .modal-dialog {
+            max-width: 1000px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('#cityTable').DataTable({
+                pageLength: 10
+            });
+        });
+    </script>
+
+    <script>
+        function handleSelectButtonCity(button) {
+            // Get the table row that contains the button
+            const row = button.closest('tr');
+
+            // Get the values of the columns in the row
+            const city = row.querySelector('td:nth-child(1)').textContent;
+            const pin_code = row.querySelector('td:nth-child(2)').textContent;
+            const district = row.querySelector('td:nth-child(3)').textContent;
+            const state = row.querySelector('td:nth-child(4)').textContent;
+
+            // Set the values of the form fields with the row values
+            /*document.getElementById('cityForm').querySelector('#city').value = city;
+            document.getElementById('cityForm').querySelector('#pin_code').value = pin_code;
+            document.getElementById('cityForm').querySelector('#district').value = district;
+            document.getElementById('cityForm').querySelector('#state').value = state;*/
+            document.getElementById('city').value = city;
+            document.getElementById('pin_code').value = pin_code;
+            document.getElementById('district').value = district;
+            document.getElementById('state').value = state;
+
+            // Hide the modal
+            const modal = document.getElementById('cityModal');
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+        }
+    </script>
+
+
+</body>
+
+</html>

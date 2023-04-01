@@ -5,39 +5,59 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
+const conn = await pool.getConnection();
 class authController {
+
+  static getData = async () => {
+    //const conn = await pool.getConnection();
+    try {
+      const [rows1] = await conn.query("SELECT role_id,role_name FROM roles Order By role_name");
+      return [rows1];
+    } catch (error) {
+      console.error(error);
+      // Handle the error
+    } finally {
+      conn.release();
+    }
+  }
+
+  static register_user = async (req, res) => {
+    const [role_list] = await this.getData();
+    res.render('auth/register', { title: 'Register User', layout: 'global', role_list });
+  }
 
   static register = async (req, res) => {
     const { username, password, confPassword, first_name, middle_name, last_name, user_role, email_id, mobile_no, user_status } = req.body;
     const data = { username, password, confPassword, first_name, middle_name, last_name, user_role, email_id, mobile_no, user_status }
-    const conn = await pool.getConnection();
+    const [role_list] = await this.getData();
+    //const conn = await pool.getConnection();
 
     if (username && password && email_id & mobile_no) {
       //return res.status(400).json({ message: 'Enter all required fields' });
-      return res.render('auth/register', { alert: 'Username, password, email and mobile are required.', data });
+      return res.render('auth/register', { alert: 'Username, password, email and mobile are required.', data, role_list });
     }
     const usernameRegex = /^[A-Za-z0-9_.]+$/;
     if (!usernameRegex.test(username)) {
-      return res.render('auth/register', { alert: `Username can only contain alphabets, numbers, underscore (_) and dot (.) characters`, data });
+      return res.render('auth/register', { alert: `Username can only contain alphabets, numbers, underscore (_) and dot (.) characters`, data, role_list });
     }
     const maxUsernameLength = 20;
     if (username.includes(' ') || username.length > maxUsernameLength) {
-      return res.render('auth/register', { alert: `Username cannot contain spaces and cannot exceed ${maxUsernameLength} characters`, data });
+      return res.render('auth/register', { alert: `Username cannot contain spaces and cannot exceed ${maxUsernameLength} characters`, data, role_list });
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email_id)) {
-      return res.render('auth/register', { alert: `Invalid email format`, data });
+      return res.render('auth/register', { alert: `Invalid email format`, data, role_list });
     }
     if (password !== confPassword) {
       //return res.status(400).json({ msg: "Password and Confirm Password do not match" });
-      return res.render('auth/register', { alert: `Password and Confirm Password do not match.`, data });
+      return res.render('auth/register', { alert: `Password and Confirm Password do not match.`, data, role_list });
     }
 
     // Check if user with same user and email already exists
     const [rows, fields] = await conn.query('SELECT * FROM users WHERE (username=? or email_id=?)', [username, email_id]);
     if (rows.length > 0) {
       //return res.status(400).json({ message: 'User with same email already exists' });
-      return res.render('auth/register', { alert: `User with same username or email already exists`, data });
+      return res.render('auth/register', { alert: `User with same username or email already exists`, data, role_list });
     } else {
       try {
         // Genrate max user id
@@ -84,28 +104,9 @@ class authController {
     }
   };
 
-  /*static register_user = async (req, res) => {
-    const token = req.cookies.authToken;
-    if (!token) {
-      return res.render('auth/register', { title: 'Register User', layout: 'global'});
-    }else{
-      try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const [rows] = await pool.query('SELECT * FROM users WHERE user_id = ?', [decoded.id]);
-        const user = rows[0];
-        if (!user) {console.log('User not found for register-user ' )}
-        //const user=res.locals.user;
-        return res.render('auth/register', { title: 'Register User', layout: 'main', user:user});
-      } catch (error) {
-        console.error(error);
-        res.redirect('/');
-      }
-    }
-  }*/
-    
   static login = async (req, res) => {
     const { email_id, password } = req.body;
-    const conn = await pool.getConnection();
+    //const conn = await pool.getConnection();
     try {
       const [rows] = await conn.query("SELECT * FROM users WHERE email_id = ? and status='A'", [email_id]);
       const user = rows[0];
@@ -135,6 +136,8 @@ class authController {
       console.error(error);
       //res.status(500).json({ message: 'Internal server error.' });
       return res.render('auth/login', { title: 'Register User', layout: 'global', alert: `Authentication failed. Internal server error.` });
+    } finally {
+      conn.release
     }
   }
 
@@ -147,7 +150,7 @@ class authController {
   static resetPassword = async (req, res) => {
     const { email_id, password } = req.body;
     try {
-      const [rows] = await pool.query('SELECT * FROM users WHERE email_id = ?', [email_id]);
+      const [rows] = await conn.query('SELECT * FROM users WHERE email_id = ?', [email_id]);
       const user = rows[0];
       if (!user) {
         //return res.status(404).json({ message: 'User not found.' });
@@ -156,7 +159,7 @@ class authController {
 
       const salt = await bcrypt.genSalt();
       const hashedPassword = await bcrypt.hash(password, salt);
-      await pool.query('UPDATE users SET password = ? WHERE user_id = ?', [hashedPassword, user.user_id]);
+      await conn.query('UPDATE users SET password = ? WHERE user_id = ?', [hashedPassword, user.user_id]);
       //res.json({ message: 'Password reset successful.' });
       //return res.render('home', { alert: `Password change successfully. User can login with new password` });
       return res.redirect('/');
@@ -164,7 +167,10 @@ class authController {
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error.' });
+    } finally{
+      conn.release
     }
+
   }
 
   static checkToken = async (req, res, next) => {
@@ -176,16 +182,20 @@ class authController {
     }
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const [rows] = await pool.query('SELECT * FROM users WHERE user_id = ?', [decoded.id]);
+      const [rows] = await conn.query('SELECT * FROM users WHERE user_id = ?', [decoded.id]);
       const user = rows[0];
       if (!user) {
         return res.redirect('/');
       }
       res.locals.user = user;
+      //console.log('User checked..................')
+      //console.log(res.locals.user.user_role)
       next();
     } catch (error) {
       console.error(error);
       res.redirect('/');
+    } finally{
+      conn.release
     }
   }
 

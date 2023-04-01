@@ -14,18 +14,6 @@ body {
     /* set the height of your header and footer */
 }
 
-.footer {
-    height: 50px;
-    background-color: #f5f5f5;
-}
-
-/* Sticky footer styles */
-.footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-
 .navbar-brand {
     /*font-family: Arial, sans-serif;*/
     font-size: 28px;
@@ -41,3 +29,4 @@ body {
     border-radius: 3px;
   }
   
+

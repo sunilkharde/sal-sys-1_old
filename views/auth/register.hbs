@@ -2,14 +2,14 @@
     <div class="row justify-content-center">
         <div class="col-lg-6 border p-4">
             <h2 class="mb-4">User Registration</h2>
-<!--
+            <!--
             {{#if alert}}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{alert}}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {{/if}}
--->
+            -->
             <form action="/auth/register" method="post">
                 <div class="mb-3">
                     <label for="name" class="form-label">Username</label>
@@ -34,9 +34,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" value="{{data.password}}"
-                        required placeholder="Enter your password" aria-describedby="passwordHelp"
-                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{6,20}$">
+                    <div class="input-group">
+                        <input type="password" class="form-control" name="password" id="password"
+                            value="{{data.password}}" required placeholder="Enter your password"
+                            aria-describedby="passwordHelp"
+                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{6,20}$">
+                        <button class="btn btn-outline-secondary" type="button" id="password-toggle">
+                            <i class="bi bi-eye"></i></button>
+                    </div>
                     <div id="passwordeHelp" class="form-text">Password between 6 to 20 characters which contain numbers,
                         uppercase/lowercase letters and at least one special character.</div>
                 </div>
@@ -76,6 +81,18 @@
                             <label for="user-role" class="form-label">User Role</label>
                             <select class="form-select" id="user_role" name="user_role"
                                 aria-label=".form-select-sm example">
+                                {{#each role_list}}
+                                <option value="{{role_id}}" {{#isEqual ../data.role_id
+                                    category_id}}selected{{/isEqual}}>
+                                    {{role_name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                        <!-- <div class="mb-3">
+                            <label for="user-role" class="form-label">User Role</label>
+                            <select class="form-select" id="user_role" name="user_role"
+                                aria-label=".form-select-sm example">
                                 {{#if data.user_role}}
                                 <option selected> {{data.user_role}} </option>
                                 {{/if}}
@@ -84,7 +101,7 @@
                                 <option value="Manager">Manager</option>
                                 <option value="Dealer">Dealer</option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="mb-3">
                             <label for="user-status" class="form-label">User Status</label>
@@ -115,3 +132,18 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    const passwordToggle = document.getElementById('password-toggle');
+    const passwordField = document.getElementById('password');
+    passwordToggle.addEventListener('click', function () {
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            passwordToggle.innerHTML = '<i class="bi bi-eye-slash"></i>';
+        } else {
+            passwordField.type = 'password';
+            passwordToggle.innerHTML = '<i class="bi bi-eye"></i>';
+        }
+    });
+</script>

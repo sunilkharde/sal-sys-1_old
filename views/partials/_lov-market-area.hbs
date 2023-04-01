@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <!-- marketAreaModal -->
+    <div class="modal fade" id="marketAreaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Select market area from list...</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table" id="marketAreaTable">
+                        <thead>
+                            <tr>
+                                <th>Area-ID</th>
+                                <th>Market Area</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each market_area_list}}
+                            <tr>
+                                <td>{{this.market_area_id}}</td>
+                                <td>{{this.market_area}}</td>
+                                <td style="text-align: center;">
+                                    <button type="button" class="btn btn-info btn-sm"
+                                        onclick="handleSelectButtonMarketArea(this)">
+                                        <i class="bi bi-check2-square"></i>&nbsp;Select
+                                    </button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                </div>
+                {{!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #marketAreaModal .modal-dialog {
+            max-width: 750px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('#marketAreaTable').DataTable({
+                pageLength: 10
+            });
+        });
+    </script>
+
+    <script>
+        function handleSelectButtonMarketArea(button) {
+            // Get the table row that contains the button
+            const row = button.closest('tr');
+
+            // Get the values of the columns in the row
+            const market_area_id = row.querySelector('td:nth-child(1)').textContent;
+            const market_area = row.querySelector('td:nth-child(2)').textContent;
+
+            // Set the values of the form fields with the row values
+            /*document.getElementById('cityForm').querySelector('#city').value = city;*/
+            document.getElementById('market_area_id').value = market_area_id;
+            document.getElementById('market_area').value = market_area;
+
+            // Hide the modal
+            const modal = document.getElementById('marketAreaModal');
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal_kp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Row 11, Column 1</td>
+                <td>Row 11, Column 2</td>
+                <td>
+                  <button type="button" id="btn-select" class="btn btn-primary selectButton">Select</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Row 22, Column 1</td>
+                <td>Row 22, Column 2</td>
+                <td>
+                  <button type="button" id="btn-select" class="btn btn-primary selectButton">Select</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Row 33, Column 1</td>
+                <td>Row 33, Column 2</td>
+                <td>
+                  <button type="button" id="btn-select" class="btn btn-primary selectButton">Select</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+    /*const selectButtons = document.querySelectorAll('.selectButton');
+    //const inputField1 = document.getElementById('input1');
+    //const inputField2 = document.getElementById('input2');
+    selectButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        const selectedValue1 = document.querySelector(`table tbody tr:nth-child(${index + 1}) td:nth-child(1)`).textContent;
+        const selectedValue2 = document.querySelector(`table tbody tr:nth-child(${index + 1}) td:nth-child(2)`).textContent;
+        input1.value = selectedValue1;
+        input2.value = selectedValue2;
+        const modal = document.getElementById('exampleModal_kp');
+        const modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide();
+      });
+    });*/
+
+
+    const selectButtons = document.getElementsByClassName('selectButton');
+    Array.from(selectButtons).forEach((button, index) => {
+      button.addEventListener('click', () => {
+        const selectedValue1 = document.querySelector(`table tbody tr:nth-child(${index + 1}) td:nth-child(1)`).textContent;
+        const selectedValue2 = document.querySelector(`table tbody tr:nth-child(${index + 1}) td:nth-child(2)`).textContent;
+        input1.value = selectedValue1;
+        input2.value = selectedValue2;
+        const modal = document.getElementById('exampleModal_kp');
+        const modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide();
+      });
+    });
+
+  </script>
+
+
+</body>
+
+</html>

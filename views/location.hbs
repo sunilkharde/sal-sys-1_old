@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Input Location on Google Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{process.env.GOOGLE_MAPS_API_KEY}}"></script>
+    <style>
+      #map {
+        height: 550px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Input Location: {{location}}</h1>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: { lat: {{lat}}, lng: {{lng}} }
+        });
+        const marker = new google.maps.Marker({
+          position: { lat: {{lat}}, lng: {{lng}} },
+          map: map
+        });
+      }
+      initMap();
+    </script>
+  </body>
+</html>

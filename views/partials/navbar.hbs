@@ -5,7 +5,8 @@
         <a class="navbar-brand" href="#">
             <!-- <img src="/images/malpani-logo-2020.webp" width="40" height="45" class="d-inline-block align-top" alt="">  -->
             <div class="navbar-image-wrapper">
-                <img src="/images/malpani-logo-2020.webp" width="35" height="40" class="d-inline-block align-top" alt="">
+                <img src="/images/malpani-logo-2020.webp" width="35" height="40" class="d-inline-block align-top"
+                    alt="">
             </div>
             &nbspMalpani Sales
         </a>
@@ -16,13 +17,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {{#if activeHome}}active{{/if}}" aria-current="page" href="/">Home</a>
+                    <a class="nav-link {{#isEqual activePage '/'}}active{{/isEqual}}" href="/">Home</a>
                 </li>
 
                 {{#isEqual user.user_role "Admin"}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{#if activeDropdownManageUser}}active{{/if}}" href="#"
-                        id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         Manage User
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
@@ -36,31 +37,35 @@
                 </li>
                 {{/isEqual}}
 
+                {{#isEqual user.user_role "Admin"}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{#if activeDropdownMasters}}active{{/if}}" href="#"
-                        id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         Masters
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                         <li><a class="dropdown-item" href="/product/view">Products</a></li>
-                        <li><a class="dropdown-item" href="#">Dealers</a></li>
+                        <li><a class="dropdown-item" href="/customer/view">Customers</a></li>                        
                     </ul>
                 </li>
+                {{/isEqual}}
 
+                {{#isEqual user.user_role "Admin" "Dealer"}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{#if activeDropdownTransaction}}active{{/if}}" href="#"
-                        id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         Transactions
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                        <li><a class="dropdown-item" href="#">Purchase Order</a></li>
+                        <li><a class="dropdown-item" href="/po/view">Purchase Order</a></li>
                     </ul>
                 </li>
+                {{/isEqual}}
 
                 <li class="nav-item">
-                    <a class="nav-link {{#if activeAbout}}active{{/if}}" href="/about">About</a>
+                    <a class="nav-link" href="/about">About</a>
                 </li>
-                
+
             </ul>
 
 

@@ -9,10 +9,21 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
 
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: 0,
   queueLimit: 0
-  
 });
+
+// middleware function to get a connection from the pool and attach it to the request object
+/*const getConnection = async (req, res, next) => {
+  try {
+    const conn = await pool.getConnection();
+    req.dbConn = conn;
+    console.log('Get connection is called..............')
+    next();
+  } catch (err) {
+    next(err);
+  }
+};*/
 
 
 export default pool;

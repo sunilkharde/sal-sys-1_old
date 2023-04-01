@@ -23,8 +23,8 @@
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group">
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                        <button class="btn btn-outline-secondary" type="button" id="password-toggle"><i
-                                class="bi bi-eye"></i></button>
+                        <button class="btn btn-outline-secondary" type="button" id="password-toggle">
+                            <i class="bi bi-eye"></i></button>
                     </div>
                 </div>
 
@@ -45,3 +45,18 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    const passwordToggle = document.getElementById('password-toggle');
+    const passwordField = document.getElementById('password');
+    passwordToggle.addEventListener('click', function () {
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            passwordToggle.innerHTML = '<i class="bi bi-eye-slash"></i>';
+        } else {
+            passwordField.type = 'password';
+            passwordToggle.innerHTML = '<i class="bi bi-eye"></i>';
+        }
+    });
+</script>

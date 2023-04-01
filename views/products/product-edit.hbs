@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-6 border p-4">
-            <h3 class="mb-4">Update Product  {{data.product_id}} </h3>
+            <h4 class="mb-4">Update Product {{data.product_id}} </h4>
 
             <form action="/product/update/{{data.product_id}}" method="post">
                 <div class="mb-3">
@@ -49,6 +49,22 @@
                     <label for="ext_code" class="form-label">Product External Code</label>
                     <input type="text" class="form-control" id="ext_code" name="ext_code" value="{{data.ext_code}}"
                         placeholder="Product External Code" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="bu_id" class="form-label">Business Units</label>
+                    <select id="bu_id" name="bu_id[]" class="form-select" multiple>
+                        {{#if (isArray bu_list)}}
+                        {{#each bu_list}}
+                        <option value="{{this.bu_id}}" {{#if (includes ../selectedBu_list this.bu_id)}}selected{{/if}}>
+                            {{this.bu_name}}</option>
+                        {{/each}}
+                        {{else}}
+                        <option value="{{bu_list.bu_id}}" {{#if (includes ../selectedBu_list
+                            bu_list.bu_id)}}selected{{/if}}>
+                            {{bu_list.bu_name}}</option>
+                        {{/if}}
+                    </select>
                 </div>
 
                 <div class="mb-3">

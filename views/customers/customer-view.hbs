@@ -1,0 +1,55 @@
+<div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h4 style=" margin-bottom: 20px;">List of Customer</h4>
+        <a href="/customer/create" class="btn btn-success">Create New</a>
+    </div>
+
+    <table class="table" id="customersTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer Name</th>
+                <th>Nickname</th>
+                <th>City-Pin</th>
+                <th>Market Area</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each customers}}
+            <tr>
+                <td>{{this.customer_id}}</td>
+                <td>{{this.customer_name}}</td>
+                <td>{{this.nick_name}}</td>
+                <td>{{this.city_pin}}</td>
+                <td>{{this.market_area}}</td>
+                <td>{{this.customer_type}}</td>
+                <td>
+                    <!-- <a href="/customer/viewByID/{{this.customer_id}}" class="btn btn-secondary btn-sm">
+                        <i class="bi bi-eye"></i>
+                    </a> -->
+                    <a href="/customer/update/{{this.customer_id}}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    {{#isEqual ../user.user_role "Admin"}}
+                    <a href="/customer/delete/{{this.customer_id}}" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure?')">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    {{/isEqual}}
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $('#customersTable').dataTable({
+                pageLength: 10
+            });
+        });
+    </script>
+
+</div>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <!-- usersModal -->
+    <div class="modal fade" id="usersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Select user from list...</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username/Email</th>
+                                <th>User Role</th>
+                                <th>Mobile</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each users_list}}
+                            <tr>
+                                <td>{{this.user_id}}</td>
+                                <td>{{this.map_user}}</td>
+                                <td>{{this.user_role}}</td>
+                                <td>{{this.mobile_no}}</td>
+                                <td>{{this.status}}</td>
+                                <td style="text-align: center;">
+                                    <button type="button" class="btn btn-info btn-sm"
+                                        onclick="handleSelectButtonUser(this)">
+                                        <i class="bi bi-check2-square"></i>&nbsp;Select
+                                    </button>
+
+                                    <!-- <a href="#" class="btn btn-info btn-sm" onclick="handleSelectButton(this)">
+                                        <i class="bi bi-eye"></i>
+                                    </a> -->
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #usersModal .modal-dialog {
+            max-width: 950px;
+        }
+        .modal-lg .modal-dialog {
+            max-width: 900px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('#usersTable').DataTable({
+                pageLength: 10
+            });
+        });
+    </script>
+
+    <script>
+        function handleSelectButtonUser(button) {
+            // Get the table row that contains the button
+            const row = button.closest('tr');
+
+            // Get the values of the columns in the row
+            const user_id = row.querySelector('td:nth-child(1)').textContent;
+            const username = row.querySelector('td:nth-child(2)').textContent;
+
+            // Set the values of the form fields with the row values
+            /*document.getElementById('cityForm').querySelector('#user_id').value = user_id;
+            document.getElementById('cityForm').querySelector('#username').value = username;*/
+            document.getElementById('user_id').value = user_id;
+            document.getElementById('username').value = username;
+
+            // Hide the modal
+            const modal = document.getElementById('usersModal');
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+        }
+    </script>
+
+</body>
+
+</html>

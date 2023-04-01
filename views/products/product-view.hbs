@@ -1,6 +1,6 @@
 <div class="container">
     <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 style=" margin-bottom: 20px;">List of Products</h3>
+        <h4 style=" margin-bottom: 20px;">List of Products</h4>
         <a href="/product/create" class="btn btn-success">Create New</a>
     </div>
 
@@ -30,19 +30,21 @@
                     <a href="/product/update/{{this.product_id}}" class="btn btn-primary btn-sm">
                         <i class="bi bi-pencil"></i>
                     </a>
-                    <a href="/product/delete/{{this.product_id}}"
-                        class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                    {{#isEqual ../user.user_role "Admin"}}
+                    <a href="/product/delete/{{this.product_id}}" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure?')">
                         <i class="bi bi-trash"></i>
                     </a>
+                    {{/isEqual}}
                 </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
-
+    
     <script>
         $(document).ready(function () {
-            $('#productsTable').DataTable({
+            $('#productsTable').dataTable({
                 pageLength: 10
             });
         });
